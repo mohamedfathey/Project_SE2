@@ -4,7 +4,6 @@ import 'package:amazon/utils/colors.dart';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -81,6 +80,9 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
       child: Column(
         children: [
+          SizedBox(
+              width: width,
+              child: Text('  New To Amazon ?', style: textTheme.bodyMedium!)),
           Container(
             height: height * 0.06,
             width: width,
@@ -129,9 +131,6 @@ class _AuthScreenState extends State<AuthScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      TextSpan(
-                          text: '  New To Amazon ?',
-                          style: textTheme.bodyMedium!)
                     ],
                   ),
                 )
@@ -146,6 +145,10 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             child: Column(
               children: [
+                SizedBox(
+                    width: width,
+                    child: Text('Already a Customer',
+                        style: textTheme.bodyMedium!)),
                 Row(
                   children: [
                     InkWell(
@@ -184,9 +187,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          TextSpan(
-                              text: 'Already a Customer',
-                              style: textTheme.bodyMedium!)
                         ],
                       ),
                     )
@@ -244,7 +244,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(color: secondaryColor),
+                            borderSide: const BorderSide(color: secondaryColor),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -332,6 +332,9 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             child: Column(
               children: [
+                SizedBox(
+                    width: width,
+                    child: Text('New to Amazon', style: textTheme.bodyMedium!)),
                 Row(
                   children: [
                     InkWell(
@@ -370,9 +373,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          TextSpan(
-                              text: ' New to Amazon',
-                              style: textTheme.bodyMedium!)
                         ],
                       ),
                     )
@@ -397,7 +397,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: secondaryColor),
+                        borderSide: const BorderSide(color: secondaryColor),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -462,7 +462,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(color: secondaryColor),
+                            borderSide: const BorderSide(color: secondaryColor),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -492,7 +492,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 CommonAuthButton(
                   title: 'Continue',
                   onPressed: () {
-                    
                     AuthServices.receiveOTP(
                         context: context,
                         mobileNo:
@@ -532,6 +531,9 @@ class _AuthScreenState extends State<AuthScreen> {
               ],
             ),
           ),
+          SizedBox(
+              width: width,
+              child: Text('Already a Customer', style: textTheme.bodyMedium!)),
           Container(
             height: height * 0.06,
             width: width,
@@ -580,9 +582,6 @@ class _AuthScreenState extends State<AuthScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      TextSpan(
-                          text: '  Already a Customer?',
-                          style: textTheme.bodyMedium!)
                     ],
                   ),
                 )

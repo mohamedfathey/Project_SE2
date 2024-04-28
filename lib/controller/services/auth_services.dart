@@ -31,11 +31,11 @@ class AuthServices {
         },
         verificationFailed: (e) {
           if (e.code == 'invalid-phone-number') {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Error the provided number not valid')));
-          }else {
-             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Something went wrong try again')));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Error the provided number not valid')));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Something went wrong try again')));
           }
         },
         codeSent: (String verificationID, int? resendToken) {
@@ -55,8 +55,8 @@ class AuthServices {
         },
         codeAutoRetrievalTimeout: (String verificationID) {},
       );
-    } catch (e) {
-      log(e.toString());
+    } on FirebaseException catch (e) {
+      log(e.message.toString());
     }
   }
 
@@ -71,7 +71,7 @@ class AuthServices {
       Navigator.push(
           context,
           PageTransition(
-            child: SignLogic(),
+            child: const SignLogic(),
             type: PageTransitionType.rightToLeft,
           ));
     } catch (e) {

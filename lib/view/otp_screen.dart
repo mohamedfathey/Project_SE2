@@ -4,7 +4,6 @@ import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/view/auth_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../utils/colors.dart';
 
