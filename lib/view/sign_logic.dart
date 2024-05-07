@@ -12,16 +12,16 @@ class SignLogic extends StatefulWidget {
 }
 
 class _SignLogicState extends State<SignLogic> {
+  final AuthServices _authServices = AuthServices();
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      CheckAuthentication();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
-  void CheckAuthentication() {
-    bool userIsAuthenticated = AuthServices.checkAuthentication();
+/*   void checkAuthentication() {
+    bool userIsAuthenticated = _authServices.checkAuthentication();
     if (userIsAuthenticated) {
       Navigator.pushAndRemoveUntil(
         context,
@@ -41,7 +41,7 @@ class _SignLogicState extends State<SignLogic> {
         (route) => false,
       );
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
