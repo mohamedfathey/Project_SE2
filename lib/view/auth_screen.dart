@@ -1,9 +1,14 @@
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/services/auth_services.dart';
+import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
 import 'package:amazon/utils/colors.dart';
+import 'package:amazon/view/home_screen.dart';
+import 'package:amazon/view/otp_screen.dart';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -13,6 +18,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final AuthServices _authServices = AuthServices();
+
   bool inLogin = false;
   String CurrentCountryCode = '+20';
   TextEditingController mobileController = TextEditingController();
@@ -40,8 +47,8 @@ class _AuthScreenState extends State<AuthScreen> {
             height: height,
             width: width,
             padding: EdgeInsets.symmetric(
-              vertical: height * 0.02,
-              horizontal: width * 0.03,
+              vertical: height * 0.01,
+              horizontal: width * 0.02,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,13 +59,68 @@ class _AuthScreenState extends State<AuthScreen> {
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
                 CommonFunction.blankSpace(height * 0.02, 0),
-                Builder(builder: (context) {
-                  if (!inLogin) {
-                    return SignIn(width, height, textThem, context);
-                  } else {
-                    return CreateAcount(width, height, textThem, context);
-                  }
-                }),
+                BlocListener<LoginBloc, LoginState>(
+                  listener: (context, state) {
+                    String message = "";
+                    if (state is ExceptionState) {
+                      message = state.message;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text(message), const Icon(Icons.error)],
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else if (state is OtpExceptionState) {
+                      message = state.message;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text(message), const Icon(Icons.error)],
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else if (state is LoginCompleteState) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                          child: const HomeScreen(),
+                          type: PageTransitionType.rightToLeft,
+                        ),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, state) {
+                      if (state is LoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is OtpSentState ||
+                          state is OtpExceptionState) {
+                        return Expanded(
+                          child: OTPScreen(
+                            mobileNumber:
+                                '$CurrentCountryCode${mobileController.text.trim()}',
+                          ),
+                        );
+                      }
+
+                      return Builder(builder: (context) {
+                        if (!inLogin) {
+                          return SignIn(width, height, textThem, context);
+                        } else {
+                          return CreateAcount(width, height, textThem, context);
+                        }
+                      });
+                    },
+                  ),
+                ),
                 CommonFunction.blankSpace(height * 0.05, 0),
                 const BottomAuthScreenWidget(),
               ],
@@ -267,10 +329,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: CommonAuthButton(
                     title: 'Continue',
                     onPressed: () {
-                      AuthServices.receiveOTP(
-                          context: context,
-                          mobileNo:
-                              '$CurrentCountryCode${mobileController.text.trim()}');
+                      BlocProvider.of<LoginBloc>(context).add(SendOtpEvent(
+                          phoNo:
+                              '$CurrentCountryCode${mobileController.text.trim()}'));
                     },
                   ),
                 ),
@@ -492,10 +553,9 @@ class _AuthScreenState extends State<AuthScreen> {
                 CommonAuthButton(
                   title: 'Continue',
                   onPressed: () {
-                    AuthServices.receiveOTP(
-                        context: context,
-                        mobileNo:
-                            '+$CurrentCountryCode${mobileController.text.trim()}');
+                    BlocProvider.of<LoginBloc>(context).add(SendOtpEvent(
+                        phoNo:
+                            '$CurrentCountryCode${mobileController.text.trim()}'));
                   },
                 ),
                 CommonFunction.blankSpace(

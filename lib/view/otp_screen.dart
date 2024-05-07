@@ -1,9 +1,9 @@
-
-
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/services/auth_services.dart';
+import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
 import 'package:amazon/view/auth_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../utils/colors.dart';
 
@@ -16,6 +16,8 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  AuthServices _authServices = AuthServices();
+
   TextEditingController otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class _OTPScreenState extends State<OTPScreen> {
         ),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [ Container(
+        child: ListView(children: [
+          Container(
             height: height,
             width: width,
             padding: EdgeInsets.symmetric(
@@ -120,12 +122,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   child: CommonAuthButton(
                     title: 'Continue',
                     onPressed: () {
-                      AuthServices.verifyOTP(
-                        context: context,
-                        otp: otpController.text.trim(),
-                      );
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(VerifyOtpEvent(otp: otpController.text.trim()));
                     },
-                    
                   ),
                 ),
                 CommonFunction.blankSpace(
@@ -154,8 +153,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ],
             ),
           ),
-        ]
-        ),
+        ]),
       ),
     );
   }
