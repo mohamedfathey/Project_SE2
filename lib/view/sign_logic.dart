@@ -1,6 +1,6 @@
 import 'package:amazon/controller/services/auth_services.dart';
+import 'package:amazon/view/Home/HomeScreen/home_screen.dart';
 import 'package:amazon/view/auth_screen.dart';
-import 'package:amazon/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -20,6 +20,7 @@ class _SignLogicState extends State<SignLogic> {
     });
   }
 
+  // ignore: non_constant_identifier_names
   void CheckAuthentication() {
     bool userIsAuthenticated = AuthServices.checkAuthentication();
     if (userIsAuthenticated) {

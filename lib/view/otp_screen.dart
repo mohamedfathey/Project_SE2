@@ -1,5 +1,3 @@
-
-
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/services/auth_services.dart';
 import 'package:amazon/view/auth_screen.dart';
@@ -7,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 
+// ignore: must_be_immutable
 class OTPScreen extends StatefulWidget {
   OTPScreen({super.key, required this.mobileNumber});
   String mobileNumber;
@@ -32,8 +31,8 @@ class _OTPScreenState extends State<OTPScreen> {
         ),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [ Container(
+        child: ListView(children: [
+          Container(
             height: height,
             width: width,
             padding: EdgeInsets.symmetric(
@@ -49,7 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -69,7 +68,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ],
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -77,7 +76,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
                   style: textTheme.bodyMedium,
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -112,7 +111,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -125,10 +124,9 @@ class _OTPScreenState extends State<OTPScreen> {
                         otp: otpController.text.trim(),
                       );
                     },
-                    
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -146,7 +144,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                   ],
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -154,8 +152,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ],
             ),
           ),
-        ]
-        ),
+        ]),
       ),
     );
   }
