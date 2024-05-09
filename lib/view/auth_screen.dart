@@ -122,7 +122,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
-                CommonFunction.blankSpace(height * 0.05, 0),
+                CommonFunctions.blankSpace(height * 0.05, 0),
                 const BottomAuthScreenWidget(),
               ],
             ),
