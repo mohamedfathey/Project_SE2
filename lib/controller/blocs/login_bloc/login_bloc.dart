@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:amazon/controller/services/auth_bloc/auth_bloc.dart';
 import 'package:amazon/controller/services/auth_services.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
