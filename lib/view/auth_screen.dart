@@ -1,6 +1,6 @@
 import 'package:amazon/constant/common_function.dart';
+import 'package:amazon/controller/blocs/login_bloc/login_bloc.dart';
 import 'package:amazon/controller/services/auth_services.dart';
-import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:amazon/view/home_screen.dart';
 import 'package:amazon/view/otp_screen.dart';
@@ -59,11 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: textThem.displaySmall!
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
-<<<<<<< HEAD
                 CommonFunctions.blankSpace(height * 0.02, 0),
-=======
-                CommonFunction.blankSpace(height * 0.02, 0),
->>>>>>> main
                 BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
                     String message = "";
@@ -126,11 +122,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
-<<<<<<< HEAD
                 CommonFunctions.blankSpace(height * 0.05, 0),
-=======
-                CommonFunction.blankSpace(height * 0.05, 0),
->>>>>>> main
                 const BottomAuthScreenWidget(),
               ],
             ),

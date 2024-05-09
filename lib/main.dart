@@ -1,6 +1,7 @@
+import 'package:amazon/controller/blocs/auth_bloc/auth_bloc.dart';
+import 'package:amazon/controller/blocs/login_bloc/login_bloc.dart';
 import 'package:amazon/controller/provider/auth_provider.dart';
-import 'package:amazon/controller/services/auth_bloc/auth_bloc.dart';
-import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
+
 import 'package:amazon/utils/theme.dart';
 import 'package:amazon/view/auth_screen.dart';
 import 'package:amazon/view/home_screen.dart';
