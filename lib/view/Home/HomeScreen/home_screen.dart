@@ -6,10 +6,10 @@ import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/constant/constants.dart';
 import 'package:amazon/controller/provider/deal_of_the_provider.dart';
 import 'package:amazon/controller/services/product_services.dart';
-import 'package:amazon/controller/services/user_data_CRUD_services.dart';
 import 'package:amazon/model/ProductModel.dart';
 import 'package:amazon/utils/colors.dart';
-import 'package:amazon/view/User/Product/Product_Screen/product_screen.dart';
+import 'package:amazon/view/User/Product_Screen/Product_Screen.dart';
+import 'package:amazon/view/User/product_category_screen/product_category_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -473,14 +473,14 @@ class HomeScreenCategoriesList extends StatelessWidget {
           return InkWell(
             /// ************* ABO ALI bymasii
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   PageTransition(
-              //     child:
-              //         ProductCategoryScreen(productCategory: categories[index]),
-              //     type: PageTransitionType.rightToLeft,
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                PageTransition(
+                  child:
+                      ProductCategoryScreen(productCategory: categories[index]),
+                  type: PageTransitionType.rightToLeft,
+                ),
+              );
             },
             child: Container(
               margin: EdgeInsets.symmetric(
