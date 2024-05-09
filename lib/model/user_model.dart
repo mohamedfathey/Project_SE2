@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
@@ -32,3 +33,18 @@ class UserModel {
   factory UserModel.fromJson(String source) =>
       UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
+=======
+class UserModel {
+  final String? id;
+  final String? phone;
+  final String? displayName;
+
+  UserModel({
+    required this.id,
+    required this.phone,
+    required this.displayName,
+  });
+}
+
+// User model Can be improver later to have all the data we need. This comment is for Loay Ghreeb
+>>>>>>> main

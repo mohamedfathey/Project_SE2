@@ -59,7 +59,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: textThem.displaySmall!
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
+<<<<<<< HEAD
                 CommonFunctions.blankSpace(height * 0.02, 0),
+=======
+                CommonFunction.blankSpace(height * 0.02, 0),
+>>>>>>> main
                 BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
                     String message = "";
@@ -122,7 +126,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
+<<<<<<< HEAD
                 CommonFunctions.blankSpace(height * 0.05, 0),
+=======
+                CommonFunction.blankSpace(height * 0.05, 0),
+>>>>>>> main
                 const BottomAuthScreenWidget(),
               ],
             ),
