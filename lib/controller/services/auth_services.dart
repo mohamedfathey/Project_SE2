@@ -66,7 +66,7 @@ class AuthServices {
       AuthCredential authCredential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
 
-      auth.signInWithCredential(authCredential);
+      await auth.signInWithCredential(authCredential);
 
       await FirebaseFirestore.instance
           .collection("users")

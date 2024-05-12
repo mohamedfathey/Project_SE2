@@ -25,7 +25,8 @@ class OtpVerifiedState extends LoginState {
 }
 
 class LoginCompleteState extends LoginState {
-  const LoginCompleteState();
+  final String role;
+  const LoginCompleteState(this.role);
 
   @override
   List<Object> get props => [];

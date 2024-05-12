@@ -22,8 +22,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(OtpSentState());
     });
 
-    on<LoginCompleteEvent>((event, emit) {
-      emit(const LoginCompleteState());
+    on<LoginCompleteEvent>((event, emit) async {
+      final String role = await authServices.getRole();
+      emit(LoginCompleteState(role));
     });
 
     on<LoginExceptionEvent>((event, emit) {
@@ -34,7 +35,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(LoadingState());
       try {
         authServices.verifyAndLogin(verID, event.otp);
-        emit(const LoginCompleteState());
+        final String role = await authServices.getRole();
+        emit(LoginCompleteState(role));
       } catch (e) {
         emit(const OtpExceptionState(message: "Invalid otp!"));
         print(e);

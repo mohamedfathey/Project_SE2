@@ -124,7 +124,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                         ProductModel currentModel =
                             sellerProductProvider.products[index];
                         return Container(
-                          height: height * 0.3,
+                          height: height * 0.4,
                           width: width,
                           margin: EdgeInsets.symmetric(
                             vertical: height * 0.01,

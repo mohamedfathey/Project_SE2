@@ -489,15 +489,19 @@ class HomeScreenCategoriesList extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image(
-                    image: AssetImage(
-                      'assets/images/categories/${categories[index]}.png',
+                  Expanded(
+                    child: Image(
+                      image: AssetImage(
+                        'assets/images/categories/${categories[index]}.png',
+                      ),
+                      height: height * 0.07,
                     ),
-                    height: height * 0.07,
                   ),
-                  Text(
-                    categories[index],
-                    style: textTheme.labelMedium,
+                  Expanded(
+                    child: Text(
+                      categories[index],
+                      style: textTheme.labelMedium,
+                    ),
                   )
                 ],
               ),
@@ -539,67 +543,72 @@ class HomePageAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          InkWell(
-            ///************* */ ABO ALI bymasii
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   PageTransition(
-              //     child: const SearchedProductScreen(),
-              //     type: PageTransitionType.rightToLeft,
-              //   ),
-              // );
-            },
-            child: Container(
-              width: width * 0.81,
-              height: height * 0.06,
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.04,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  5,
+          Expanded(
+            flex: 6,
+            child: InkWell(
+              ///************* */ ABO ALI bymasii
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   PageTransition(
+                //     child: const SearchedProductScreen(),
+                //     type: PageTransitionType.rightToLeft,
+                //   ),
+                // );
+              },
+              child: Container(
+                width: width * 0.801,
+                height: height * 0.06,
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.04,
                 ),
-                border: Border.all(
-                  color: grey,
-                ),
-                color: white,
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    color: black,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    5,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: width * 0.03,
-                    ),
-                    child: Text(
-                      'Search Amazon.in',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: grey),
-                    ),
-                  ),
-                  const Spacer(),
-                  Icon(
-                    Icons.camera_alt_sharp,
+                  border: Border.all(
                     color: grey,
                   ),
-                ],
+                  color: white,
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: black,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: width * 0.03,
+                      ),
+                      child: Text(
+                        'Search Amazon.in',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: grey),
+                      ),
+                    ),
+                    const Spacer(),
+                    Icon(
+                      Icons.camera_alt_sharp,
+                      color: grey,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          IconButton(
-              onPressed: () {
-                ProductServices.getImages(context: context);
-              },
-              icon: Icon(
-                Icons.mic,
-                color: black,
-              ))
+          Expanded(
+            child: IconButton(
+                onPressed: () {
+                  ProductServices.getImages(context: context);
+                },
+                icon: Icon(
+                  Icons.mic,
+                  color: black,
+                )),
+          )
         ],
       ),
     );

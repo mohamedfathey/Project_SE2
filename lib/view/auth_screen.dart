@@ -1,9 +1,12 @@
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/blocs/login_bloc/login_bloc.dart';
 import 'package:amazon/controller/services/auth_services.dart';
+import 'package:amazon/main.dart';
 import 'package:amazon/utils/colors.dart';
+import 'package:amazon/view/Home/component/user_bottom_nav_bar.dart';
 import 'package:amazon/view/home_screen.dart';
 import 'package:amazon/view/otp_screen.dart';
+import 'package:amazon/view/seller/seller_persistant_nav_bar/seller_bottom_nav_bar.dart';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -86,14 +89,25 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       );
                     } else if (state is LoginCompleteState) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          child: const HomeScreen(),
-                          type: PageTransitionType.rightToLeft,
-                        ),
-                        (route) => false,
-                      );
+                      if (state.role == "user") {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                            child: const UserBottomNavBar(),
+                            type: PageTransitionType.leftToRight,
+                          ),
+                          (route) => false,
+                        );
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                            child: const SellerBottomNavBar(),
+                            type: PageTransitionType.leftToRight,
+                          ),
+                          (route) => false,
+                        );
+                      }
                     }
                   },
                   child: BlocBuilder<LoginBloc, LoginState>(
