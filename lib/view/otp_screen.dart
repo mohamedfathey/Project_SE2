@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:amazon/constant/common_function.dart';
+import 'package:amazon/controller/blocs/login_bloc/login_bloc.dart';
 import 'package:amazon/controller/services/auth_services.dart';
-import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
+import 'package:amazon/main.dart';
 import 'package:amazon/view/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../utils/colors.dart';
 
@@ -51,7 +55,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -71,7 +75,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ],
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -79,7 +83,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
                   style: textTheme.bodyMedium,
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -114,7 +118,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -127,7 +131,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     },
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.01,
                   0,
                 ),
@@ -145,7 +149,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                   ],
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),

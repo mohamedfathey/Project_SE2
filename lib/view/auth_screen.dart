@@ -1,9 +1,12 @@
 import 'package:amazon/constant/common_function.dart';
+import 'package:amazon/controller/blocs/login_bloc/login_bloc.dart';
 import 'package:amazon/controller/services/auth_services.dart';
-import 'package:amazon/controller/services/login_bloc/login_bloc.dart';
+import 'package:amazon/main.dart';
 import 'package:amazon/utils/colors.dart';
+import 'package:amazon/view/Home/component/user_bottom_nav_bar.dart';
 import 'package:amazon/view/home_screen.dart';
 import 'package:amazon/view/otp_screen.dart';
+import 'package:amazon/view/seller/seller_persistant_nav_bar/seller_bottom_nav_bar.dart';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final AuthServices _authServices = AuthServices();
 
   bool inLogin = false;
+  // ignore: non_constant_identifier_names
   String CurrentCountryCode = '+20';
   TextEditingController mobileController = TextEditingController();
   TextEditingController namedController = TextEditingController();
@@ -58,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: textThem.displaySmall!
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
-                CommonFunction.blankSpace(height * 0.02, 0),
+                CommonFunctions.blankSpace(height * 0.02, 0),
                 BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
                     String message = "";
@@ -85,14 +89,25 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       );
                     } else if (state is LoginCompleteState) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          child: const HomeScreen(),
-                          type: PageTransitionType.rightToLeft,
-                        ),
-                        (route) => false,
-                      );
+                      if (state.role == "user") {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                            child: const UserBottomNavBar(),
+                            type: PageTransitionType.leftToRight,
+                          ),
+                          (route) => false,
+                        );
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                            child: const SellerBottomNavBar(),
+                            type: PageTransitionType.leftToRight,
+                          ),
+                          (route) => false,
+                        );
+                      }
                     }
                   },
                   child: BlocBuilder<LoginBloc, LoginState>(
@@ -121,7 +136,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
-                CommonFunction.blankSpace(height * 0.05, 0),
+                CommonFunctions.blankSpace(height * 0.05, 0),
                 const BottomAuthScreenWidget(),
               ],
             ),
@@ -131,6 +146,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Container SignIn(
       double width, double height, TextTheme textTheme, BuildContext context) {
     return Container(
@@ -180,7 +196,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   0,
                   width * 0.02,
                 ),
@@ -236,7 +252,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                     ),
-                    CommonFunction.blankSpace(
+                    CommonFunctions.blankSpace(
                       0,
                       width * 0.02,
                     ),
@@ -254,7 +270,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     )
                   ],
                 ),
-                CommonFunction.blankSpace(height * 0.01, 0),
+                CommonFunctions.blankSpace(height * 0.01, 0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -321,7 +337,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ],
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -335,7 +351,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -374,6 +390,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   //create Account
+  // ignore: non_constant_identifier_names
   Container CreateAcount(
       double width, double height, TextTheme textTheme, BuildContext context) {
     return Container(
@@ -421,7 +438,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                     ),
-                    CommonFunction.blankSpace(
+                    CommonFunctions.blankSpace(
                       0,
                       width * 0.02,
                     ),
@@ -439,7 +456,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     )
                   ],
                 ),
-                CommonFunction.blankSpace(height * 0.01, 0),
+                CommonFunctions.blankSpace(height * 0.01, 0),
                 SizedBox(
                   height: height * 0.06,
                   width: width * 0.82,
@@ -471,7 +488,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-                CommonFunction.blankSpace(height * 0.01, 0),
+                CommonFunctions.blankSpace(height * 0.01, 0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -538,7 +555,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ],
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -546,7 +563,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   'By enrolling your mobile phone number, you concent to receive automated security notifications via text message from Amazon.\n Message and data rates may apply',
                   style: textTheme.bodyMedium,
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -558,7 +575,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             '$CurrentCountryCode${mobileController.text.trim()}'));
                   },
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   height * 0.02,
                   0,
                 ),
@@ -629,7 +646,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ),
-                CommonFunction.blankSpace(
+                CommonFunctions.blankSpace(
                   0,
                   width * 0.02,
                 ),
@@ -654,6 +671,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class CommonAuthButton extends StatelessWidget {
   CommonAuthButton({
     super.key,
@@ -696,7 +714,7 @@ class BottomAuthScreenWidget extends StatelessWidget {
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [white, greyShade3, white])),
         ),
-        CommonFunction.blankSpace(
+        CommonFunctions.blankSpace(
           height * 0.02,
           0,
         ),
@@ -717,7 +735,7 @@ class BottomAuthScreenWidget extends StatelessWidget {
             ),
           ],
         ),
-        CommonFunction.blankSpace(
+        CommonFunctions.blankSpace(
           height * 0.01,
           0,
         ),
