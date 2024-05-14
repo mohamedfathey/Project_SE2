@@ -146,18 +146,6 @@ class KeepShopping extends StatelessWidget {
           StreamBuilder(
               stream: UsersProductService.fetchKeepShoppingForProducts(),
               builder: (context, snapshot) {
-                if (snapshot.data!.isEmpty) {
-                  return Container(
-                    height: height * 0.15,
-                    width: width,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Start Browsing for Products',
-                      style: textTheme.bodyMedium,
-                    ),
-                  );
-                }
-
                 if (snapshot.hasData) {
                   List<ProductModel> products = snapshot.data!;
                   return GridView.builder(

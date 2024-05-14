@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/constant/constants.dart';
 import 'package:amazon/controller/provider/rating_provider.dart';
-import 'package:amazon/controller/services/product_services.dart';
 import 'package:amazon/controller/services/rating_services.dart';
 import 'package:amazon/controller/services/users_product_services.dart';
 import 'package:amazon/model/ProductModel.dart';
@@ -14,11 +13,11 @@ import 'package:amazon/model/review_model.dart';
 import 'package:amazon/model/user_product_model.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:amazon/view/Home/HomeScreen/home_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -30,16 +29,10 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  final razorpay = Razorpay();
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-      razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-      razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-      context.read<RatingProvider>().reset();
       setState(() {
         usersRating = -1;
       });
@@ -54,73 +47,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   TextEditingController reviewTextController = TextEditingController();
   double usersRating = -1;
-  @override
-  void dispose() {
-    super.dispose();
-    razorpay.clear();
-  }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
-    UserProductModel userProductModel = UserProductModel(
-      imagesURL: widget.productModel.imagesURL,
-      name: widget.productModel.name,
-      category: widget.productModel.category,
-      description: widget.productModel.description,
-      brandName: widget.productModel.brandName,
-      manufacturerName: widget.productModel.manufacturerName,
-      countryOfOrigin: widget.productModel.countryOfOrigin,
-      specifications: widget.productModel.specifications,
-      price: widget.productModel.price,
-      discountedPrice: widget.productModel.discountedPrice,
-      productID: widget.productModel.productID,
-      productSellerID: widget.productModel.productSellerID,
-      inStock: widget.productModel.inStock,
-      discountPercentage: widget.productModel.discountPercentage,
-      productCount: 1,
-      time: DateTime.now(),
-    );
-    await ProductServices.addSalesData(
-      context: context,
-      productModel: userProductModel,
-      userID: auth.currentUser!.phoneNumber!,
-    );
-    await UsersProductService.addOrder(
-        context: context, productModel: userProductModel);
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    CommonFunctions.showErrorToast(
-      context: context,
-      message: 'Opps! Product Purchase Failed',
-    );
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {}
-
-  // executePayment() {
-  //   var options = {
-  //     'key': keyID,
-  //     // 'amount': widget.productModel.discountedPrice! * 100,
-  //     'amount': 1 * 100, // Amount is rs 1,
-  //     // here amount * 100 because razorpay counts amount in paisa
-  //     //i.e 100 paisa = 1 Rupee
-  //     // 'image' : '<YOUR BUISNESS EMAIL>'
-  //     'name': widget.productModel.name,
-  //     'description': (widget.productModel.description!.length < 255)
-  //         ? widget.productModel.description!.length
-  //         : widget.productModel.description!.substring(0, 250),
-  //     'prefill': {
-  //       'contact': auth.currentUser!.phoneNumber, //<USERS CONTACT NO.>
-  //       'email': 'test@razorpay.com' // <USERS EMAIL NO.>
-  //     }
-  //   };
-
-  //   razorpay.open(options);
-  // }
-
-// !
-// !
-// !
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -153,8 +80,9 @@ class _ProductScreenState extends State<ProductScreen> {
                   viewportFraction: 1,
                 ),
                 items: widget.productModel.imagesURL!.map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
+                  return CachedNetworkImage(
+                    imageUrl: i,
+                    imageBuilder: (BuildContext context, imageProvider) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         // margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -162,7 +90,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         decoration: BoxDecoration(
                           // color: Colors.amber,
                           image: DecorationImage(
-                            image: NetworkImage(i),
+                            image: imageProvider,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -542,10 +470,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   shrinkWrap: true,
                   physics: const PageScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return Image(
-                      image: NetworkImage(
-                        widget.productModel.imagesURL![index],
-                      ),
+                    return CachedNetworkImage(
+                      imageUrl: widget.productModel.imagesURL![index],
                     );
                   })
             ],
@@ -835,11 +761,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                                     Axis.horizontal,
                                                 shrinkWrap: true,
                                                 itemBuilder: (context, index) {
-                                                  return Image(
-                                                    image: NetworkImage(
-                                                      currentReview
-                                                          .imagesURL![index],
-                                                    ),
+                                                  return CachedNetworkImage(
+                                                    imageUrl: currentReview
+                                                        .imagesURL![index],
                                                   );
                                                 }),
                                           ),
@@ -943,11 +867,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                                     Axis.horizontal,
                                                 shrinkWrap: true,
                                                 itemBuilder: (context, index) {
-                                                  return Image(
-                                                    image: NetworkImage(
-                                                      currentReview
-                                                          .imagesURL![index],
-                                                    ),
+                                                  return CachedNetworkImage(
+                                                    imageUrl: currentReview
+                                                        .imagesURL![index],
                                                   );
                                                 }),
                                           ),
@@ -1032,13 +954,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 stream: RatingServices.fetchReview(
                     productID: widget.productModel.productID!),
                 builder: (context, snapshot) {
-                  log('Total Ratings =  ${snapshot.data!.length}');
-                  if (snapshot.data!.isEmpty) {
-                    return Text(
-                      'No Ratings yet',
-                      style: textTheme.labelMedium!.copyWith(color: grey),
-                    );
-                  }
+                  log('Total Ratings =  ${snapshot.data?.length}');
                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                     List<ReviewModel> reviewData = snapshot.data!;
                     return ListView.builder(
@@ -1061,10 +977,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                             crossAxisSpacing: 10),
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return Image(
-                                        image: NetworkImage(
-                                          currentReview.imagesURL![index],
-                                        ),
+                                      return CachedNetworkImage(
+                                        imageUrl:
+                                            currentReview.imagesURL![index],
                                       );
                                     }),
                               CommonFunctions.blankSpace(
@@ -1116,7 +1031,10 @@ class _ProductScreenState extends State<ProductScreen> {
                   if (snapshot.hasError) {
                     return const SizedBox();
                   } else {
-                    return const SizedBox();
+                    return Text(
+                      'No Ratings yet',
+                      style: textTheme.labelMedium!.copyWith(color: grey),
+                    );
                   }
                 }),
             CommonFunctions.blankSpace(
