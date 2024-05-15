@@ -10,6 +10,7 @@ import 'package:amazon/model/ProductModel.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:amazon/view/User/Product_Screen/Product_Screen.dart';
 import 'package:amazon/view/User/product_category_screen/product_category_screen.dart';
+import 'package:amazon/view/User/searched_product_screen/searched_product_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -469,7 +470,6 @@ class HomeScreenCategoriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return InkWell(
-            /// ************* ABO ALI bymasii
             onTap: () {
               Navigator.push(
                 context,
@@ -546,13 +546,13 @@ class HomePageAppBar extends StatelessWidget {
             child: InkWell(
               ///************* */ ABO ALI bymasii
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   PageTransition(
-                //     child: const SearchedProductScreen(),
-                //     type: PageTransitionType.rightToLeft,
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    child: const SearchedProductScreen(),
+                    type: PageTransitionType.rightToLeft,
+                  ),
+                );
               },
               child: Container(
                 width: width * 0.801,

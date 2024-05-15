@@ -1,6 +1,7 @@
 import 'package:amazon/view/Home/HomeScreen/home_screen.dart';
 import 'package:amazon/view/User/Profile/Profile_Screen.dart';
 import 'package:amazon/view/User/cart/cart_screen.dart';
+import 'package:amazon/view/User/menu/menu_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -21,7 +22,7 @@ class _UserBottomNavBarState extends State<UserBottomNavBar> {
       const HomeScreen(),
       const ProfileScreen(),
       const CartScreen(),
-      // const MenuScreen()
+      const MenuScreen()
     ];
   }
 
@@ -45,12 +46,12 @@ class _UserBottomNavBarState extends State<UserBottomNavBar> {
         activeColorPrimary: teal,
         inactiveColorPrimary: black,
       ),
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(Icons.menu),
-      //   title: "Menu",
-      //   activeColorPrimary: teal,
-      //   inactiveColorPrimary: black,
-      // ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.menu),
+        title: "Menu",
+        activeColorPrimary: teal,
+        inactiveColorPrimary: black,
+      ),
     ];
   }
 
