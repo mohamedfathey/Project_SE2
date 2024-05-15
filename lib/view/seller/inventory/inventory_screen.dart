@@ -4,6 +4,7 @@ import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/controller/provider/Product_Provider.dart';
 import 'package:amazon/model/ProductModel.dart';
 import 'package:amazon/view/seller/add_product_screen/add_products_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -150,15 +151,17 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                   viewportFraction: 1,
                                 ),
                                 items: currentModel.imagesURL!.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
+                                  return CachedNetworkImage(
+                                    imageUrl: i,
+                                    imageBuilder:
+                                        (BuildContext context, imageProvider) {
                                       return Container(
                                         width:
                                             MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                           color: white,
                                           image: DecorationImage(
-                                            image: NetworkImage(i),
+                                            image: imageProvider,
                                             fit: BoxFit.contain,
                                           ),
                                         ),
