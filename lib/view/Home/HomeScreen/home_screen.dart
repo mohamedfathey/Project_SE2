@@ -51,15 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     checkUserAddress();
-  //     context.read<AddressProvider>().getCurrentSelectedAddress();
-  //     context.read<DealOfTheDayProvider>().fetchTodaysDeal();
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<DealOfTheDayProvider>().fetchTodaysDeal();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -289,7 +287,7 @@ class TodaysDealHomeScreenWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${dealOfTheDayProvider.deals[3].discountPercentage}%-${dealOfTheDayProvider.deals[0].discountPercentage}% off | Latest deals.',
+                  '${dealOfTheDayProvider.deals[1].discountPercentage}%-${dealOfTheDayProvider.deals[0].discountPercentage}% off | Latest deals.',
                   style: textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),

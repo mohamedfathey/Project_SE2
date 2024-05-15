@@ -180,44 +180,50 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
               child: Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: black,
+                  Expanded(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: black,
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: width * 0.68,
-                    child: TextField(
-                      controller: searchController,
-                      onSubmitted: (productName) {
-                        // log(productName);
-                        context
-                            .read<UsersProductProvider>()
-                            .getSearchedProducts(productName: productName);
-                      },
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: width * 0.03,
-                        ),
-                        filled: true,
-                        fillColor: white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
+                  Expanded(
+                    flex: 5,
+                    child: SizedBox(
+                      width: width * 0.68,
+                      child: TextField(
+                        controller: searchController,
+                        onSubmitted: (productName) {
+                          // log(productName);
+                          context
+                              .read<UsersProductProvider>()
+                              .getSearchedProducts(productName: productName);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: width * 0.03,
+                          ),
+                          filled: true,
+                          fillColor: white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.mic,
-                        color: black,
-                      ))
+                  Expanded(
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.mic,
+                          color: black,
+                        )),
+                  )
                 ],
               ),
             )),
